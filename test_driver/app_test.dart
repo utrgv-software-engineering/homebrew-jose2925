@@ -1,6 +1,7 @@
 // Imports the Flutter Driver API.
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'dart:math';
 
 void main() {
   FlutterDriver driver;
@@ -26,8 +27,27 @@ void main() {
       Then I should see "63g - course ground coffee"
       And I should see "887g - water"
     */
-    test("should give recommendation for French Press", () {
-      // your code here
+    test("should give recommendation for French Press", () async {
+      //your code here
+      final frenchpressButton = find.byValueKey('french-press');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('5');
+      await driver.waitFor(find.text('5'));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final resultCoffee = find.byValueKey('amount-and-type-coffee');
+      final resultWater = find.byValueKey('amount-water');
+
+      expect(await driver.getText(resultCoffee), '63g - course ground coffee');
+      expect(await driver.getText(resultWater), '887g - water');
     });
 
     /*
@@ -39,8 +59,30 @@ void main() {
       Then I should see "52g - medium ground coffee"
       And I should see "887g - water"
     */
-    test("should give recommendation for Drip Machine", () {
+    test("should give recommendation for Drip Machine", () async {
       //your code here
+      final doneButton = find.byValueKey('done');
+      await driver.tap(doneButton);
+
+      final frenchpressButton = find.byValueKey('drip-machine');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('5');
+      await driver.waitFor(find.text('5'));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final resultCoffee = find.byValueKey('amount-and-type-coffee');
+      final resultWater = find.byValueKey('amount-water');
+
+      expect(await driver.getText(resultCoffee), '52g - medium ground coffee');
+      expect(await driver.getText(resultWater), '887g - water');
     });
   });
 
@@ -51,8 +93,16 @@ void main() {
       Then I expect to still be on the Coffee Device Selection Screen
     */
     test("should not advance from Choose Device Screen without a selection",
-        () {
-      //your code here
+        () async {
+      final doneButton = find.byValueKey('done');
+      await driver.tap(doneButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final chooseScreen = find.byValueKey('choose-screen');
+      expect(await driver.getText(chooseScreen),
+          "What Coffee maker are you using?");
     });
 
     /*
@@ -61,8 +111,21 @@ void main() {
       When I press "Continue"
       Then I expect to still be on the Choose Cups Screen
     */
-    test("should not advance from Choose Cups Screen without cups", () {
-      //your code here
+    test("should not advance from Choose Cups Screen without cups", () async {
+      final frenchpressButton = find.byValueKey('french-press');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
 
     /*
@@ -72,9 +135,28 @@ void main() {
       And I press "Continue"
       Then I expect to still be on the Choose Cups Screen
     */
+
     test("should not advance from Choose Cups Screen with negative cup amount",
-        () {
-      //your code here
+        () async {
+      final frenchpressButton = find.byValueKey('french-press');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('');
+      await driver.waitFor(find.text(''));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
 
     /*
@@ -84,11 +166,29 @@ void main() {
       And I press "Continue"
       Then I expect to still be on the Choose Cups Screen
     */
+
     test(
         "should not advance from Choose Cups Screen with letter for cup amount",
-        () {
-      //your code here
-      //if you can restrict the keyboard to numbers only you can delete this test
+        () async {
+      final frenchpressButton = find.byValueKey('french-press');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('');
+      await driver.waitFor(find.text(''));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
 
     /*
@@ -97,8 +197,21 @@ void main() {
       When I press "Continue"
       Then I expect to still be on the Choose Cups Screen
     */
-    test("should not advance from Choose Cups Screen without cups", () {
-      //your code here
+    test("should not advance from Choose Cups Screen without cups", () async {
+      final dmButton = find.byValueKey('drip-machine');
+      await driver.tap(dmButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
 
     /*
@@ -109,8 +222,26 @@ void main() {
       Then I expect to still be on the Choose Cups Screen
     */
     test("should not advance from Choose Cups Screen with negative cup amount",
-        () {
-      //your code here
+        () async {
+      final dmButton = find.byValueKey('drip-machine');
+      await driver.tap(dmButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('');
+      await driver.waitFor(find.text(''));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
 
     /*
@@ -122,14 +253,56 @@ void main() {
     */
     test(
         "should not advance from Choose Cups Screen with letter for cup amount",
-        () {
-      //your code here
-      //if you can restrict the keyboard to numbers only you can delete this test
+        () async {
+      final dmButton = find.byValueKey('drip-machine');
+      await driver.tap(dmButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('');
+      await driver.waitFor(find.text(''));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final cupScreen = find.byValueKey('enter-cups-screen');
+      expect(await driver.getText(cupScreen), "How many cups would you like?");
+
+      final backButton = find.byValueKey('back-one');
+      await driver.tap(backButton);
     });
   });
 
   group('Back Button', () {
-    //make up your own tests to check that the back button works
-    //on every page
+    test(
+        "gets to the last page and checks every back button until it gets to choose you device screen",
+        () async {
+      final frenchpressButton = find.byValueKey('french-press');
+      await driver.tap(frenchpressButton);
+
+      final continueButton = find.byValueKey('continue1');
+      await driver.tap(continueButton);
+
+      final cupsCofee = find.byValueKey('number-of-cups');
+      await driver.tap(cupsCofee);
+      await driver.enterText('5');
+      await driver.waitFor(find.text('5'));
+
+      final continueButton2 = find.byValueKey('continue2');
+      await driver.tap(continueButton2);
+
+      final backButton2 = find.byValueKey('back-two');
+      await driver.tap(backButton2);
+
+      final backButtonA = find.byValueKey('back-one');
+      await driver.tap(backButtonA);
+
+      final chooseScreen = find.byValueKey('choose-screen');
+      expect(await driver.getText(chooseScreen),
+          "What Coffee maker are you using?");
+    });
   });
 }

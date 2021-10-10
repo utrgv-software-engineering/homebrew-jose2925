@@ -21,4 +21,44 @@ void main() {
       expect(() => CoffeeTools.cupsToOunces(0), throwsArgumentError);
     });
   });
+
+  group('Test coffe_tools functions', () {
+    test("Test whatType function if FP was selected", () {
+      String x = "FP";
+      final CoffeeTools coffe = CoffeeTools();
+      coffe.whatType(x);
+
+      expect(coffe.whatCoffe, "course ground coffee");
+    });
+
+    test("Test whatType function if DM was selected", () {
+      String x = "DM";
+      final CoffeeTools coffe = CoffeeTools();
+      coffe.whatType(x);
+
+      expect(coffe.whatCoffe, "medium ground coffee");
+    });
+
+    test("test WaterConverter function if FP was selected", () {
+      String x = '5';
+      String cm = "FP";
+      final CoffeeTools coffe = CoffeeTools();
+      coffe.whatType(cm);
+      coffe.WaterConverter(x);
+
+      expect(coffe.gramsOfWater.round(), 887);
+      expect(coffe.amountCoffee.round(), 63);
+    });
+
+    test("test WaterConverter function if DM was selected", () {
+      String x = '5';
+      String cm = "DM";
+      final CoffeeTools coffe = CoffeeTools();
+      coffe.whatType(cm);
+      coffe.WaterConverter(x);
+
+      expect(coffe.gramsOfWater.round(), 887);
+      expect(coffe.amountCoffee.round(), 52);
+    });
+  });
 }
