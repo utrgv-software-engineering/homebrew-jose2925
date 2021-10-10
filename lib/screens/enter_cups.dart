@@ -78,32 +78,36 @@ class _EnterCupsState extends State<EnterCups> {
                 },
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(),
-                child: RaisedButton(
-                    color: Color(0xff4C748B),
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    child: Text("Continue",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Montserrat',
-                            fontSize: 14,
-                            color: Color(0xffffffff)),
-                        key: Key('continue2')),
-                    onPressed: agreed
-                        ? () {
-                            CoffeeTools coffe = CoffeeTools();
-                            coffe.whatType(widget.tc);
-                            coffe.WaterConverter(value.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Results(coffe)),
-                            );
-                          }
-                        : null)),
+            ButtonTheme(
+              minWidth: 250,
+              height: 50,
+              child: Padding(
+                  padding: EdgeInsets.only(),
+                  child: RaisedButton(
+                      color: Color(0xff4C748B),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      child: Text("Continue",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Montserrat',
+                              fontSize: 14,
+                              color: Color(0xffffffff)),
+                          key: Key('continue2')),
+                      onPressed: agreed
+                          ? () {
+                              CoffeeTools coffe = CoffeeTools();
+                              coffe.whatType(widget.tc);
+                              coffe.WaterConverter(value.text);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Results(coffe)),
+                              );
+                            }
+                          : null)),
+            )
           ],
         ),
       ),

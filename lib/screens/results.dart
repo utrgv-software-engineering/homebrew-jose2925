@@ -80,25 +80,28 @@ class Results extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: RaisedButton(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                  color: Color(0xff4C748B),
-                  child: Text(' Done ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'Montserrat',
-                          fontSize: 14,
-                          color: Color(0xffffffff))),
-                  key: Key('done'),
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChooseDeviceScreen())),
-                ))
+            ButtonTheme(
+                minWidth: 250,
+                height: 50,
+                child: Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: RaisedButton(
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      color: Color(0xff4C748B),
+                      child: Text(' Done ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Montserrat',
+                              fontSize: 14,
+                              color: Color(0xffffffff))),
+                      key: Key('done'),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChooseDeviceScreen())),
+                    )))
           ],
         ),
       ),
